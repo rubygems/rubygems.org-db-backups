@@ -1,0 +1,9 @@
+.git*
+Dockerfile
+.gitignore
+.travis.yml
+CONDUCT.md
+CONTRIBUTING.md
+LICENSE
+README.md
+shipit.yml
