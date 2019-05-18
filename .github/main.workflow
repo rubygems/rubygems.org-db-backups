@@ -22,7 +22,7 @@ action "Docker Registry" {
 }
 
 action "Push docker image" {
-  uses = "actions/docker/login@8cdf801b322af5f369e00d85e9cf3a7122f49108"
+  uses = "actions/docker/cli@8cdf801b322af5f369e00d85e9cf3a7122f49108"
   args = "push quay.io/rubygems/rubygems.org-db-backups:$GITHUB_SHA"
   needs = ["Master branch only", "Docker Registry"]
 }
