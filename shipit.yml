@@ -1,0 +1,11 @@
+dependencies:
+  override:
+    - gem install kubernetes-deploy -v 0.26.4
+    
+deploy:
+  override:
+    - kubernetes-deploy backups-$ENVIRONMENT rubygems --template-dir config/deploy/$ENVIRONMENT --bindings=environment=$ENVIRONMENT
+
+rollback:
+  override:
+    - kubernetes-deploy backups-$ENVIRONMENT rubygems --template-dir config/deploy/$ENVIRONMENT --bindings=environment=$ENVIRONMENT

@@ -1,0 +1,58 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: public-dump
+spec:
+  schedule: "21 21 * * 1"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            name: public-dump
+        spec:
+          automountServiceAccountToken: false
+          restartPolicy: Never
+          containers:
+          - name: public-dump
+            image: quay.io/rubygems/rubygems.org-db-backups:<%= current_sha %>
+            args: ["script/dump_db.sh"]
+            env:
+              - name: DEPLOYMENT_ENV
+                value: "<%= environment %>"
+              - name: AWS_ACCESS_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: <%= environment %>
+                    key: aws_access_key_id
+              - name: AWS_SECRET_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: <%= environment %>
+                    key: aws_secret_access_key
+              - name: POSTGRESQL_DB
+                valueFrom:
+                  secretKeyRef:
+                    name: <%= environment %>
+                    key: database_name
+              - name: POSTGRESQL_HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: <%= environment %>
+                    key: database_host
+              - name: POSTGRESQL_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: <%= environment %>
+                    key: database_user
+              - name: POSTGRESQL_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: <%= environment %>
+                    key: database_password
+              - name: SLACK_WEBHOOK_URL
+                valueFrom:
+                  secretKeyRef:
+                    name: <%= environment %>
+                    key: slack_webhook_url
