@@ -1,7 +1,15 @@
+machine:
+  environment:
+    KUBECONFIG: /home/deploy/.kube/config
+
 dependencies:
   override:
-    - gem install kubernetes-deploy -v 0.26.4
-    
+    - "true"
+
+ci:
+  require:
+    - build
+
 deploy:
   override:
     - kubernetes-deploy backups-$ENVIRONMENT rubygems --template-dir config/deploy/$ENVIRONMENT --bindings=environment=$ENVIRONMENT
