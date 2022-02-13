@@ -13,6 +13,7 @@ RUN apk add --no-cache \
   libxslt-dev \
   tzdata \
   curl-dev \
+  openssl \
   && rm -rf /var/cache/apk/*
 
 # Install the backup gem which is currently used to run backups.
