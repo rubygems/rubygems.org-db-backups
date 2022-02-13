@@ -45,7 +45,7 @@ Backup::Model.new(:postgresql, 'PostgreSQL Backup') do
   store_with S3 do |s3|
     s3.access_key_id      = ENV.fetch('AWS_ACCESS_KEY')
     s3.secret_access_key  = ENV.fetch('AWS_SECRET_KEY')
-    s3.bucket             = 'rubygems-rds-private-backups'
+    s3.bucket             = 'rubygems-backups'
     s3.region             = 'us-west-2'
     s3.path               = ENV.fetch('CRON_FREQ')
   end
