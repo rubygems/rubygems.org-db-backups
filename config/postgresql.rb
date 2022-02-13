@@ -20,18 +20,25 @@ Backup::Model.new(:postgresql, 'PostgreSQL Backup') do
 
   compress_with Gzip
 
-  encrypt_with GPG do |encryption|
-    encryption.keys = {}
-    encryption.keys[ENV.fetch('GPG_EMAIL')] = ENV.fetch('GPG_PUBLIC_KEY')
-    encryption.recipients = ENV.fetch('GPG_EMAIL')
+  # I am not sure who owns this key.
+  # encrypt_with GPG do |encryption|
+  #   encryption.keys = {}
+  #   encryption.keys[ENV.fetch('GPG_EMAIL')] = ENV.fetch('GPG_PUBLIC_KEY')
+  #   encryption.recipients = ENV.fetch('GPG_EMAIL')
+  # end
+
+  encrypt_with OpenSSL do |encryption|
+    encryption.password      = ENV.fetch('ENC_PASSWORD')
+    encryption.base64        = true
+    encryption.salt          = true
   end
 
   store_with S3 do |s3|
     s3.access_key_id      = ENV.fetch('AWS_ACCESS_KEY')
     s3.secret_access_key  = ENV.fetch('AWS_SECRET_KEY')
-    s3.bucket             = 'rubygems-backups'
+    s3.bucket             = 'rubygems-rds-private-backups'
     s3.region             = 'us-west-2'
-    s3.path               = ENV.fetch('DEPLOYMENT_ENV')
+    s3.path               = ENV.fetch('CRON_FREQ')
   end
 
   notify_by Slack do |slack|
