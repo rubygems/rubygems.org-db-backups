@@ -8,6 +8,15 @@
 
 require 'json'
 
+module OpenSSLFixDeprecatedKeyDerivation
+  def options
+    super + ' -pbkdf2'
+  end
+end
+
+require 'backup/encryptor/open_ssl'
+Backup::Encryptor::OpenSSL.prepend(OpenSSLFixDeprecatedKeyDerivation)
+
 Backup::Model.new(:postgresql, 'PostgreSQL Backup') do
 
   database PostgreSQL do |db|
