@@ -1,7 +1,8 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: public-dump
+  name: private-dump-weekly
+  namespace: backups-production
 spec:
   schedule: "21 21 * * 0"
   concurrencyPolicy: Forbid
@@ -10,13 +11,14 @@ spec:
       template:
         metadata:
           labels:
-            name: public-dump
+            name: private-dump
         spec:
           automountServiceAccountToken: false
           restartPolicy: Never
           containers:
-          - name: public-dump
+          - name: private-dump
             image: quay.io/rubygems/rubygems.org-db-backups:latest
+            imagePullPolicy: Always
             args: ["script/backup_db.sh"]
             env:
               - name: CRON_FREQ
