@@ -11,7 +11,9 @@ ci:
     - build
 
 deploy:
-  override: krane render -f config/deploy/$ENVIRONMENT --bindings=environment=$ENVIRONMENT --current-sha=$REVISION | krane deploy backups-$ENVIRONMENT rubygems --stdin -f config/deploy/$ENVIRONMENT/secrets.ejson
+  override:
+    - krane render -f config/deploy/$ENVIRONMENT --bindings=environment=$ENVIRONMENT --current-sha=$REVISION | krane deploy backups-$ENVIRONMENT rubygems --stdin -f config/deploy/$ENVIRONMENT/secrets.ejson
 
 rollback:
-  override: krane render -f config/deploy/$ENVIRONMENT --bindings=environment=$ENVIRONMENT --current-sha=$REVISION | krane deploy backups-$ENVIRONMENT rubygems --stdin -f config/deploy/$ENVIRONMENT/secrets.ejson
+  override:
+    - krane render -f config/deploy/$ENVIRONMENT --bindings=environment=$ENVIRONMENT --current-sha=$REVISION | krane deploy backups-$ENVIRONMENT rubygems --stdin -f config/deploy/$ENVIRONMENT/secrets.ejson
