@@ -1,4 +1,4 @@
-FROM ruby:2.7-alpine
+FROM ruby:3.1-alpine
 
 RUN apk add --no-cache \
   postgresql-client \
@@ -17,7 +17,7 @@ RUN apk add --no-cache \
   && rm -rf /var/cache/apk/*
 
 # Install the backup gem which is currently used to run backups.
-RUN gem install --no-doc backup:5.0.0.beta3 nokogiri:1.15.5
+RUN gem install backup --no-doc --version 5.0.0.beta3
 
 # Copy the directories from the repo to the container.
 COPY . .
