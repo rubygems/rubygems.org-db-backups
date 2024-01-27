@@ -17,7 +17,7 @@ RUN apk add --no-cache \
   && rm -rf /var/cache/apk/*
 
 # Install the backup gem which is currently used to run backups.
-RUN gem install backup --no-doc --version 5.0.0.beta3
+RUN gem install --no-doc backup:5.0.0.beta3 nokogiri:1.15.5
 
 # Copy the directories from the repo to the container.
 COPY . .
