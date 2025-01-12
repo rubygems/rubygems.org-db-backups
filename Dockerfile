@@ -17,7 +17,9 @@ RUN apk add --no-cache \
   && rm -rf /var/cache/apk/*
 
 # Install the backup gem which is currently used to run backups.
-RUN gem install backup --no-doc --version 5.0.0.beta3
+# Required to install ovirt-engine-sdk with cflags to apply workaround like https://github.com/oVirt/ovirt-engine-sdk-ruby/issues/14#issuecomment-2098809409
+RUN gem install ovirt-engine-sdk --no-doc --version 4.6.0 -- --with-cflags="-Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration" && \
+  gem install backup --no-doc --version 5.0.0.beta3
 
 # Copy the directories from the repo to the container.
 COPY . .
