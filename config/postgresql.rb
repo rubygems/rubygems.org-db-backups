@@ -49,12 +49,4 @@ Backup::Model.new(:postgresql, 'PostgreSQL Backup') do
     s3.region             = 'us-west-2'
     s3.path               = ENV.fetch('CRON_FREQ')
   end
-
-  notify_by Slack do |slack|
-    slack.on_success  = false
-    slack.on_warning  = true
-    slack.on_failure  = true
-    slack.webhook_url = ENV.fetch('SLACK_WEBHOOK_URL')
-  end
-
 end

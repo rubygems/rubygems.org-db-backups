@@ -51,8 +51,3 @@ spec:
                   secretKeyRef:
                     name: <%= environment %>
                     key: database_password
-              - name: SLACK_WEBHOOK_URL
-                valueFrom:
-                  secretKeyRef:
-                    name: <%= environment %>
-                    key: slack_webhook_url

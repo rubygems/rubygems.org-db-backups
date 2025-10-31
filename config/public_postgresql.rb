@@ -28,12 +28,4 @@ Backup::Model.new(:public_postgresql, 'RubyGems.org Public Database Dump') do
     s3.region             = 'us-west-2'
     s3.path               = ENV.fetch('DEPLOYMENT_ENV')
   end
-
-  notify_by Slack do |slack|
-    slack.on_success  = false
-    slack.on_warning  = true
-    slack.on_failure  = true
-    slack.webhook_url = ENV.fetch('SLACK_WEBHOOK_URL')
-  end
-
 end
