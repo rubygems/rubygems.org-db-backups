@@ -53,11 +53,6 @@ spec:
                   secretKeyRef:
                     name: production
                     key: database_password
-              - name: SLACK_WEBHOOK_URL
-                valueFrom:
-                  secretKeyRef:
-                    name: production
-                    key: slack_webhook_url
               - name: ENC_PASSWORD
                 valueFrom:
                   secretKeyRef:
