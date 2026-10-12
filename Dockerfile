@@ -1,4 +1,4 @@
-FROM ruby:3.1-alpine
+FROM ruby:3.3-alpine3.23
 
 RUN apk add --no-cache \
   postgresql-client \
